@@ -1,0 +1,94 @@
+///TestDescription
+/* if(item.Photo != null)
+                {
+                    dataGridView1.Rows.Add(item.Photo);
+                }
+                else
+                {
+                    var img = Resources.___________04_9ww1LY_c;
+                
+                    dataGridView1.Rows.Add(img);
+                }*/
+///
+	public void AddImage()
+        {
+            var img = File.ReadAllBytes(file[0]);
+            m.Employees.Add(new Employees { LastName = "A", FirstName = "A", Photo = img});
+            m.SaveChanges();
+        }
+
+        private void panel1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                label1.Text = "Отпустите мышь";
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+
+        private void panel1_DragDrop(object sender, DragEventArgs e)
+        {
+            file = (string[])e.Data.GetData(DataFormats.FileDrop);
+            MessageBox.Show(file[0].ToString());
+        }
+
+        private void panel1_DragLeave(object sender, EventArgs e)
+        {
+            label1.Text = "Перетащите картинку";
+        }
+///
+
+foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                dt.Columns.Add(col.HeaderText);
+            }
+            dataGridView1.Columns.Clear();
+            dataGridView1.DataSource = dt;
+
+///
+
+	private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            string searchValues = $"[{dataGridView1.Columns[0].HeaderText}] LIKE '%{textBox1.Text}%' OR [{dataGridView1.Columns[1].HeaderText}] LIKE '%{textBox1.Text}%'";
+
+            try
+            {
+                dt.DefaultView.RowFilter = String.Format(searchValues);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+///
+
+	private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBox1.Text == "Сортировка")
+            {
+                dt.Rows.Clear();
+                DataGridFill();
+            }
+            if (comboBox1.Text == "ID")
+            {
+                dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Ascending);
+
+            }
+            if (comboBox1.Text == "Name")
+            {
+                try
+                {
+                    dt.DefaultView.RowFilter = $"{dataGridView1.Columns[1].HeaderText} LIKE 'a'";
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
